@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diet Tracker Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            background: url("neon-dashboard.jpg") no-repeat center center/cover;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div id="user-name"></div>
+            <h2>Diet<span>Tracker</span></h2>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active" onclick="showTab('dashboard')">Dashboard</a>
+            <a href="#" class="nav-item" onclick="showTab('analysis')">Nutrient Analysis</a>
+            <a href="#" class="nav-item" onclick="showTab('meals')">Recommended Meals</a>
+            <a href="#" class="nav-item" onclick="showTab('settings')">Settings</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- HEADER -->
+        <header class="app-header">
+            <div>
+                <h1>Performance Dashboard</h1>
+                <p id="date-display"></p>
+            </div>
+            <span id="user-name"></span>
+        </header>
+
+        <!-- DASHBOARD TAB -->
+        <div id="dashboard" class="tab">
+            <div class="kpi-container">
+
+                <div class="card">
+                    <span>Calorie Balance</span>
+                    <h2 id="total-cals">0</h2>
+                    <p>kcal consumed</p>
+                    <p id="insight"></p>
+                </div>
+
+                <div class="card">
+                    <span>Daily Goal</span>
+                    <div>
+                        <div id="progress-bar" style="height:10px;background:green;width:0%"></div>
+                        <p id="progress-percent"></p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="data-section">
+
+                <div class="card">
+                    <h3>Log Nutritional Intake</h3>
+
+                    <form id="diet-form">
+                        <input type="text" id="meal-name" placeholder="Meal Name" required>
+                        <input type="number" id="meal-calories" placeholder="Calories" required>
+                        <input type="number" id="protein" placeholder="Protein (g)">
+                        <input type="number" id="carbs" placeholder="Carbs (g)">
+                        <input type="number" id="fat" placeholder="Fat (g)">
+                        <button type="submit">Add Entry</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Journal Entries</h3>
+
+                    <input type="text" id="search" placeholder="Search meal..." onkeyup="app.render()">
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Meal</th>
+                                <th>Calories</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="journal-body"></tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ANALYSIS TAB -->
+        <div id="analysis" class="tab" style="display:none;">
+            <h2>Analysis</h2>
+            <canvas id="calorieChart"></canvas>
+        </div>
+
+        <!-- RECOMMENDED MEALS TAB -->
+        <div id="meals" class="tab" style="display:none;">
+            <h2>Recommended Meals</h2>
+
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Meal</th>
+                            <th>Protein</th>
+                            <th>Calories</th>
+                            <th>Carbs</th>
+                            <th>Fat</th>
+                            <th>Add</th>
+                        </tr>
+                    </thead>
+                    <tbody id="meal-list"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SETTINGS TAB -->
+        <div id="settings" class="tab" style="display:none;">
+            <h2>Settings</h2>
+
+            <div class="card">
+                <h3>Theme</h3>
+                <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+            </div>
+
+            <div class="card">
+                <h3>Set Goal</h3>
+                <input type="number" id="goal-input" placeholder="Enter goal">
+                <button onclick="saveGoal()">Save Goal</button>
+            </div>
+
+            <div class="card">
+                <h3>Export</h3>
+                <button onclick="downloadReport()">Download Report</button>
+            </div>
+
+        </div>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
